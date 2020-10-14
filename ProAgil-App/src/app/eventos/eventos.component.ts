@@ -8,19 +8,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
 
- /* eventos: any = [
-    {EventoId: 1, Tema: 'Angular 7', Local: 'Belo Horizonte', Lote: '4 Lote', QtdPessoas: 458},
-    {EventoId: 2, Tema: 'Asp.Net Core', Local: 'São Paulo', Lote: '3 Lote', QtdPessoas: 125},
-    {EventoId: 3, Tema: 'Fullstack', Local: 'Rio de Janeiro', Lote: '1 Lote', QtdPessoas: 585},
-  ];*/
+  eventos: any = [];
+  eventosFiltrados: any = [];
+  imagemLargura = 50;
+  imagemMargem = 50;
+  mostrarImagem = true;
+  // tslint:disable-next-line: variable-name
+  _filtroLista: string;
 
-  eventos: any;
+  get filtroLista(): string
+  {
+    return this._filtroLista;
+  }
+
+  set filtroLista(value: string)
+  {
+    this._filtroLista = value;
+    this.eventosFiltrados = this._filtroLista ? this.filtrarEvento(this._filtroLista) : this.eventos;
+  }
+
+  filtrarEvento(filtrarPor: string): any
+  {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.eventos.filter(
+      evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
+  }
 
   constructor(private http: HttpClient) { }
 
   // tslint:disable-next-line: typedef
   ngOnInit() {
     this.getEventos();
+    
+  }
+
+  getMostrarImagem(){
+    this.mostrarImagem = !this.mostrarImagem;
   }
   // tslint:disable-next-line: typedef
   getEventos(){

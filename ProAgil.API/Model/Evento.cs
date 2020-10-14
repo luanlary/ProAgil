@@ -10,5 +10,6 @@ namespace ProAgil.API.Model
         public string DataEvento { get; set; }
         public int QtdPessoas { get; set; }
         public string Lote { get; set; }
+        public string imagemurl { get; set; }
     }
 }
