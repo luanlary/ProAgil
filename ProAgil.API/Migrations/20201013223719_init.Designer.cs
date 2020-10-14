@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProAgil.API.Data;
+using ProAgil.Repositorio.Data;
 
 namespace ProAgil.API.Migrations
 {
-    [DbContext(typeof(DataContext))]
+    [DbContext(typeof(ProAgilContexto))]
     [Migration("20201013223719_init")]
     partial class init
     {

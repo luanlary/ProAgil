@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProAgil.API.Data;
-
+using ProAgil.Repositorio.Data;
 
 namespace ProAgil.API.Controllers
 {
@@ -14,8 +13,8 @@ namespace ProAgil.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        public DataContext _contexto { get; }
-        public ValuesController(DataContext contexto)
+        public ProAgilContexto _contexto { get; }
+        public ValuesController(ProAgilContexto contexto)
         {
             this._contexto = contexto;
 
