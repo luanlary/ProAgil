@@ -10,7 +10,14 @@
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
-            <th><button class="btn btn-outline-primary" (click)="getMostrarImagem()">Mostrar Imagem</button></th>
+            <th><button class="btn btn-outline-primary" (click)="getMostrarImagem()">
+                <li class="fa fa-eye-slash" *ngIf="mostrarImagem"></li>
+                <li class="fa fa-eye" *ngIf="!mostrarImagem"></li>
+                {{mostrarImagem  ? 'Ocultar': 'Mostrar'}}  
+                Imagem
+               
+                </button>
+            </th>
             <th>#</th>
             <th>Tema</th>
             <th>Local</th>
@@ -25,19 +32,26 @@
             <td>
                 <img *ngIf="mostrarImagem" src="{{e.imagemurl}}" alt="" [style.width.px]="imagemLargura" [style.margin.px]="imagemMargem">
             </td>
-            <td>{{e.eventoId}}</td>
+            <td>{{e.id}}</td>
             <td>{{e.tema}}</td>
             <td>{{e.local}}</td>
             <td>{{e.dataEvento}}</td>
             <td>{{e.qtdPessoas}}</td>
-            <td>{{e.lote | uppercase}}</td>
+            <td>
+                <div *ngIf="!e.lotes.length">
+                    Não Informado
+                </div>
+                <div *ngIf="e.lotes.length">
+                    {{e.lotes[0].nome | uppercase}}
+                </div>
+            </td>
             <td>
                 <button class="btn btn-success"></button>
                 <button class="btn btn-danger"></button>
             </td>
         </tr>
     </tbody>
-    <tfoot *ngIf="!eventosFiltrados.length">
+    <tfoot *ngIf="eventosFiltrados && !eventosFiltrados.length">
         <tr>
             <td colspan=" 7 " class="text-center ">
                 <h4>Nenhum evento encontrado </h4>

@@ -28,7 +28,7 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this._filtroLista ? this.filtrarEvento(this._filtroLista) : this.eventos;
   }
 
-  filtrarEvento(filtrarPor: string): any
+  filtrarEvento(filtrarPor: string): Evento[]
   {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
@@ -41,6 +41,7 @@ export class EventosComponent implements OnInit {
   // tslint:disable-next-line: typedef
   ngOnInit() {
     this.getEventos();
+   
     
   }
 
@@ -54,6 +55,7 @@ export class EventosComponent implements OnInit {
       // tslint:disable-next-line: variable-name
       (_eventos: Evento[]) => {
         this.eventos = _eventos;
+        this.eventosFiltrados = _eventos;
       },
       e => {
         console.log(e.error);
