@@ -12,10 +12,7 @@
         <tr>
             <th><button class="btn btn-outline-primary" (click)="getMostrarImagem()">
                 <li class="fa fa-eye-slash" *ngIf="mostrarImagem"></li>
-                <li class="fa fa-eye" *ngIf="!mostrarImagem"></li>
-                {{mostrarImagem  ? 'Ocultar': 'Mostrar'}}  
-                Imagem
-               
+                <li class="fa fa-eye" *ngIf="!mostrarImagem"></li>              
                 </button>
             </th>
             <th>#</th>
@@ -35,7 +32,7 @@
             <td>{{e.id}}</td>
             <td>{{e.tema}}</td>
             <td>{{e.local}}</td>
-            <td>{{e.dataEvento}}</td>
+            <td>{{e.dataEvento | DateTimeFormatPipe}}</td>
             <td>{{e.qtdPessoas}}</td>
             <td>
                 <div *ngIf="!e.lotes.length">
