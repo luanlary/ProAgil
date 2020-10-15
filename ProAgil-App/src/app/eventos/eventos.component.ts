@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Evento } from '../_modelos/Evento';
 import { EventoService } from '../_servicos/evento.service';
 
@@ -14,8 +15,22 @@ export class EventosComponent implements OnInit {
   imagemLargura = 50;
   imagemMargem = 50;
   mostrarImagem = true;
+  modalRef: BsModalRef;
   // tslint:disable-next-line: variable-name
   _filtroLista: string;
+
+  constructor(
+    private eventoService: EventoService,
+    private modalservice: BsModalService
+    ) { }
+
+ngOnInit(): void {
+    this.getEventos();
+  }
+
+  openModal(template: TemplateRef<any>): void{
+    this.modalRef = this.modalservice.show(template);
+  }
 
   get filtroLista(): string
   {
@@ -34,15 +49,6 @@ export class EventosComponent implements OnInit {
     return this.eventos.filter(
       evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     );
-  }
-
-  constructor(private eventoService: EventoService) { }
-
-  // tslint:disable-next-line: typedef
-  ngOnInit() {
-    this.getEventos();
-   
-    
   }
 
   getMostrarImagem(){
