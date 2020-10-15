@@ -7,7 +7,7 @@ namespace ProAgil.Dominio.Modelo
         public string URL { get; set; }
         public int? EventoId { get; set; }
         public int? PalestranteId { get; set; }
-        public Evento Evento { get; set; }
-        public Palestrante Palestrante { get; set; }
+        public Evento Evento { get; }
+        public Palestrante Palestrante { get; }
     }
 }

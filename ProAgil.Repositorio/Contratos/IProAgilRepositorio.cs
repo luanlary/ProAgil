@@ -17,10 +17,11 @@ namespace ProAgil.Repositorio.Contratos
         //Eventos
         Task<Evento[]> GetAllEventoAscyncByTema(string tema, bool IncluirPalestrantes);
         Task<Evento[]> GetAllEventoAscync(bool IncluirPalestrantes);
-        Task<Evento[]> GetEventoAscyncById(int EventoId, bool incluirPalestrantes);
+        Task<Evento> GetEventoAscyncById(int EventoId, bool incluirPalestrantes);
 
         //Palestrantes
-        Task<Palestrante[]> GetAllPalestrantesAscyncByName(bool IncluirEventos);
+        Task<Palestrante[]> GetAllPalestrantesAscyncByName(string nome, bool IncluirEventos);
         Task<Palestrante> GetPalestranteAscyncById(int PalestranteId, bool IncluirEventos);
+        Task<Palestrante[]> GetAllPalestrantesAscync(bool IncluirEventos);
     }
 }

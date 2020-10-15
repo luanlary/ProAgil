@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using ProAgil.Repositorio.Data;
+using ProAgil.Repositorio.Contratos;
+using ProAgil.Repositorio.Repositorios;
 
 namespace ProAgil.API
 {
@@ -28,6 +30,7 @@ namespace ProAgil.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IProAgilRepositorio, ProAgilRepositorio>();
             services.AddCors();
             services.AddDbContext<ProAgilContexto>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
