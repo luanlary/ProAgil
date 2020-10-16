@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using ProAgil.Repositorio.Data;
 using ProAgil.Repositorio.Contratos;
 using ProAgil.Repositorio.Repositorios;
+using AutoMapper;
 
 namespace ProAgil.API
 {
@@ -30,6 +31,7 @@ namespace ProAgil.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper();
             services.AddScoped<IProAgilRepositorio, ProAgilRepositorio>();
             services.AddCors();
             services.AddDbContext<ProAgilContexto>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
