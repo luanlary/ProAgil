@@ -90,14 +90,14 @@ namespace ProAgil.API.Controllers
 
             return BadRequest();
         }
-
+        [Route("{id:int}")]
         [HttpPut]
-        public async Task<IActionResult> Put(int EventoId, Evento model)
+        public async Task<IActionResult> Put(int id, Evento model)
         {
 
             try
             {
-                var evento = await _proAgilRepositorio.GetEventoAscyncById(EventoId, false);
+                var evento = await _proAgilRepositorio.GetEventoAscyncById(id, false);
 
                 if (evento == null)
                     return NotFound();
@@ -117,14 +117,15 @@ namespace ProAgil.API.Controllers
 
             return BadRequest();
         }
-
+        
+        [Route("{id:int}")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(int EventoId, Evento model)
+        public async Task<IActionResult> Delete(int id)
         {
 
             try
             {
-                var evento = await _proAgilRepositorio.GetEventoAscyncById(EventoId, false);
+                var evento = await _proAgilRepositorio.GetEventoAscyncById(id, false);
 
                 if (evento == null)
                     return NotFound();
