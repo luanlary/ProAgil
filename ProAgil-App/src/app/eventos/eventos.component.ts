@@ -29,6 +29,7 @@ export class EventosComponent implements OnInit {
   bodyDeletarEvento: string;
   // tslint:disable-next-line: variable-name
   _filtroLista: string;
+  titulo = 'Eventos'
 
   constructor(
     private eventoService: EventoService,
@@ -93,10 +94,12 @@ ngOnInit(): void {
           (novoevento: Evento) => {
             console.log(novoevento);
             template.hide();
+            this.toastr.success('Evento inserido com Sucesso');
             this.getEventos();
           },
           e => {
             console.log(e.error);
+            this.toastr.error(`Erro ao gravar registro: ${e.error}`);
           }
         );
       }else{
@@ -106,10 +109,12 @@ ngOnInit(): void {
           (novoevento: Evento) => {
             console.log(novoevento);
             template.hide();
+            this.toastr.success('Evento atualizado com Sucesso');
             this.getEventos();
           },
           e => {
             console.log(e.error);
+            this.toastr.error(`Erro ao gravar registro: ${e.error}`);
           }
         );
       }
@@ -144,7 +149,7 @@ ngOnInit(): void {
           this.toastr.success('Deletado com Sucesso');
         }, error => {
           console.log(error);
-          this.toastr.error('Erro ao tentar deletar.');
+          this.toastr.error(`Erro ao tentar deletar: ${error}`);
         }
     );
   }
@@ -163,6 +168,7 @@ ngOnInit(): void {
       },
       e => {
         console.log(e.error);
+        this.toastr.error(`Erro ao tentar carregar os eventos: ${e.error}`);
       }
     );
   }
