@@ -36,4 +36,11 @@ deleteEvento(id: number) {
 }
 
 
+postUploads(file: File, filename: string) {
+  const formdata = new FormData();
+  formdata.append('file', file, filename);
+  return this.http.post(`${this.baseUrl}/upload`, formdata);
+}
+
+
 }

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using ProAgil.API.Dtos;
 using ProAgil.Dominio.Modelo;
 using ProAgil.Repositorio.Contratos;
@@ -22,6 +25,33 @@ namespace ProAgil.API.Controllers
         {
             this._proAgilRepositorio = proAgilRepositorio;
             this._mapper = mapper;
+        }
+
+        [HttpPost("upload")]
+        public async Task<IActionResult> upload()
+        {
+
+            try
+            {
+                var file = Request.Form.Files[0];               
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("Recursos", "Imagens"));
+                if(file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    var fullPath = Path.Combine(pathToSave, fileName.ToString().Replace("\"", "").Trim());
+                    using ( var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                return Ok();
+            }
+            catch (System.Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Banco de dados falhou!");
+            }
+            return BadRequest("Erro ao tentar realizar upload!");
         }
 
         [HttpGet]

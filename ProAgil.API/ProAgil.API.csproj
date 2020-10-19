@@ -10,6 +10,14 @@
     <None Remove="Migrations\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Recursos\Imagens\img-1.jpeg" />
+    <Content Include="Recursos\Imagens\img-2.jpeg" />
+    <Content Include="Recursos\Imagens\img-3.jpeg" />
+    <Content Include="Recursos\Imagens\img-4.jpeg" />
+    <Content Include="Recursos\Imagens\img-5.png" />
+    <Content Include="Recursos\Imagens\img-6.JPG" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -18,5 +26,8 @@
   <ItemGroup>
     <ProjectReference Include="..\ProAgil.Dominio\ProAgil.Dominio.csproj" />
     <ProjectReference Include="..\ProAgil.Repositorio\ProAgil.Repositorio.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 </Project>

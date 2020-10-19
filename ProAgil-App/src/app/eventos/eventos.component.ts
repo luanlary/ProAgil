@@ -29,7 +29,11 @@ export class EventosComponent implements OnInit {
   bodyDeletarEvento: string;
   // tslint:disable-next-line: variable-name
   _filtroLista: string;
-  titulo = 'Eventos'
+  titulo = 'Eventos';
+  file: File;
+  fileNameToUpdate: string;
+  dataAtual: string;
+
 
   constructor(
     private eventoService: EventoService,
@@ -50,6 +54,7 @@ ngOnInit(): void {
     this.registerForm.reset();
     template.show();
   }
+
 
   get filtroLista(): string
   {
@@ -83,12 +88,44 @@ ngOnInit(): void {
     });
   }
 
+  uploadImagens(): void{
+
+    if (this.modoSalvar === 'post')
+    {
+      const fileName = this.evento.imagemurl.split('\\', 3);
+      this.evento.imagemurl = fileName[2];
+      this.dataAtual = new Date().getDate().toString();
+
+      this.eventoService.postUploads(this.file, fileName[2]).subscribe(
+        () => {
+          this.dataAtual = new Date().getMilliseconds().toString();
+          this.getEventos();
+        },
+        e => {
+          console.log(e.error);
+        }
+      );
+    }else{
+      this.evento.imagemurl = this.fileNameToUpdate;
+      this.eventoService.postUploads(this.file, this.fileNameToUpdate).subscribe(
+        () => {
+          this.dataAtual = new Date().getMilliseconds().toString();
+          this.getEventos();
+        },
+        e => {
+          console.log(e.error);
+        }
+      );
+    }
+  }
+
   salvarAlteracao(template: any): void{
     if (this.registerForm.valid)
     {
       if (this.modoSalvar === 'post')
       {
         this.evento = Object.assign({}, this.registerForm.value);
+        this.uploadImagens();
         this.eventoService.postEventos(this.evento)
         .subscribe(
           (novoevento: Evento) => {
@@ -104,6 +141,7 @@ ngOnInit(): void {
         );
       }else{
         this.evento = Object.assign({id: this.evento.id}, this.registerForm.value);
+        this.uploadImagens();
         this.eventoService.putEventos(this.evento)
         .subscribe(
           (novoevento: Evento) => {
@@ -124,8 +162,10 @@ ngOnInit(): void {
   editarEvento(template: any, evento: Evento): void{  
     this.openModal(template);
     this.modoSalvar = 'put';
-    this.evento = evento;
-    this.registerForm.patchValue(evento);
+    this.evento = Object.assign({}, evento);
+    this.fileNameToUpdate = evento.imagemurl.toString();
+    this.evento.imagemurl = '';
+    this.registerForm.patchValue(this.evento);
   }
 
   novoEvento(template: any)
@@ -171,6 +211,17 @@ ngOnInit(): void {
         this.toastr.error(`Erro ao tentar carregar os eventos: ${e.error}`);
       }
     );
+  }
+
+  onFileChange(event): void{
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length)
+    {
+      this.file = event.target.files[0];
+      console.log(this.file);
+
+    }
+
   }
 
 }
