@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evento } from '../_modelos/Evento';
@@ -8,12 +8,16 @@ import { Evento } from '../_modelos/Evento';
 })
 export class EventoService {
 
-  private baseUrl = 'http://localhost:5000/api/evento'  ;
+  private baseUrl = 'http://localhost:5000/api/evento';
+  
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient) { 
+   
+}
 
 
 getAllEventos(): Observable<Evento[]>{
+  
   return this.http.get<Evento[]>(this.baseUrl);
 }
 getEventosById(id: number): Observable<Evento>{
